@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ripetiamo. | Elite Tutoring & Metodo</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bg: '#000000', // Sfondo Nero Puro per scurire
+                        primary: '#9D4EDD', 
+                        cyan: '#00F3FF',
+                        warning: '#FFD700',
+                        success: '#00FFA3',
+                        surface: '#0A0A0A',
+                        danger: '#FF3333'
+                    },
+                    animation: {
+                        'shine-fast': 'shineText 2s linear infinite', 
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'glow-breath': 'glow-breath 3s ease-in-out infinite',
+                        'pop-in': 'popIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'blink-red': 'blinkRed 1.5s infinite',
+                    },
+                    keyframes: {
+                        shineText: {
+                            '0%': { backgroundPosition: '200% center' },
+                            '100%': { backgroundPosition: '-200% center' },
+                        },
+                        'glow-breath': {
+                            '0%, 100%': { boxShadow: '0 0 20px rgba(157, 78, 221, 0.2)' },
+                            '50%': { boxShadow: '0 0 50px rgba(157, 78, 221, 0.7)' },
+                        },
+                        popIn: {
+                            '0%': { opacity: '0', transform: 'scale(0.8) translateY(40px)' },
+                            '100%': { opacity: '1', transform: 'scale(1) translateY(0)' },
+                        },
+                        blinkRed: {
+                            '0%, 100%': { opacity: 1 },
+                            '50%': { opacity: 0.4 }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { 
+            background-color: #000000; /* Nero assoluto */
+            color: #ffffff; 
+            font-family: 'Inter', sans-serif; 
+            overflow-x: hidden; 
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* --- VISUAL TREATS --- */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(to bottom, #9D4EDD, #00F3FF); border-radius: 10px; }
+
+        ::selection { background: #00F3FF; color: black; }
+
+        #scroll-progress {
+            position: fixed; top: 0; left: 0; height: 3px;
+            background: linear-gradient(90deg, #9D4EDD, #00F3FF, #FFD700);
+            background-size: 200% 100%; animation: shineText 2s linear infinite;
+            z-index: 1001; width: 0%; box-shadow: 0 0 20px #00F3FF;
+            will-change: width;
+        }
+
+        /* 1. CYBER GRID (Discesa) */
+        .cyber-grid {
+            position: fixed; inset: 0; z-index: -3;
+            background-image: 
+                linear-gradient(rgba(157, 78, 221, 0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(157, 78, 221, 0.08) 1px, transparent 1px);
+            background-size: 50px 50px;
+            transform: perspective(500px) rotateX(60deg) translateY(-100px) scale(2);
+            animation: gridMove 20s linear infinite;
+            mask-image: radial-gradient(circle, black 0%, transparent 80%);
+            pointer-events: none;
+            will-change: background-position;
+        }
+        @keyframes gridMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 50px; }
+        }
+
+        /* 2. MATH SYMBOLS */
+        .math-symbol {
+            position: fixed;
+            color: rgba(157, 78, 221, 0.35);
+            font-family: 'Times New Roman', serif;
+            font-weight: bold;
+            pointer-events: none;
+            z-index: -2;
+            animation: floatUp linear infinite; 
+            text-shadow: 0 0 5px rgba(157, 78, 221, 0.3);
+            will-change: transform, opacity;
+        }
+        .math-symbol.cyan { color: rgba(0, 243, 255, 0.3); }
+
+        @keyframes floatUp {
+            0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* NOISE - Scurito leggermente */
+        .noise-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScyNTYnIGhlaWdodD0nMjU2Jz48ZmlsdGVyIGlkPSdub2lzZSc+PGZlVHVyYnVsZW5jZSB0eXBlPSdmcmFjdGFsTm9pc2UnIGJhc2VGcmVxdWVuY3k9JzAuNzUnIG51bU9jdGF2ZXM9JzMnIHN0aXRjaFRpbGVzPSdzdGl0Y2gnLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0nMTAwJScgaGVpZ2h0PScxMDAlJyBmaWx0ZXI9J3VybCgjbm9pc2UpJyBvcGFjaXR5PScwLjA2Jy8+PC9zdmc+');
+            pointer-events: none; z-index: -1; opacity: 0.03; mix-blend-mode: overlay;
+        }
+
+        /* BLOBS - RESI MENO INVASIVI PER SFONDO SCURO */
+        .blob { 
+            position: absolute; 
+            width: 900px; height: 900px; 
+            background: radial-gradient(circle, rgba(157, 78, 221, 0.45) 0%, transparent 70%); 
+            border-radius: 50%; 
+            filter: blur(100px); 
+            animation: float 25s infinite alternate cubic-bezier(0.4, 0, 0.2, 1); 
+            opacity: 0.4; /* Opacità ridotta per scurire il sito */
+            z-index: -3;
+            will-change: transform;
+            mix-blend-mode: screen; 
+        }
+        .blob-cyan { 
+            background: radial-gradient(circle, rgba(0, 243, 255, 0.35) 0%, transparent 70%); 
+            left: auto; right: -20%; 
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(50px, 50px) scale(1.1); }
+        }
+
+        /* GLASS PANEL - Migliorato contrasto bordi */
+        .glass-panel { 
+            background: rgba(10, 10, 10, 0.75); /* Leggermente più scuro */
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15); /* Bordo più visibile */
+            box-shadow: 0 15px 40px -10px rgba(0, 0, 0, 0.9);
+            transition: transform 0.2s, box-shadow 0.4s; 
+            position: relative; overflow: hidden;
+            transform-style: preserve-3d;
+        }
+        .glass-panel:hover { border-color: rgba(255, 255, 255, 0.3); }
+
+        /* TYPOGRAPHY */
+        .hero-title { 
+            font-family: 'Inter', sans-serif; 
+            font-weight: 900; 
+            line-height: 1.1; 
+            letter-spacing: -0.05em; 
+        }
+
+        .gradient-fast { 
+            background: linear-gradient(90deg, #9D4EDD, #00F3FF, #FFD700, #9D4EDD); 
+            background-size: 200% auto;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+            animation: shine-fast 2s linear infinite;
+        }
+        
+        .click-hint { animation: clickPulse 2s infinite; }
+        @keyframes clickPulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 255, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+        }
+
+        /* MENU & MODAL */
+        #mobile-menu { transition: transform 0.5s cubic-bezier(0.85, 0, 0.15, 1); }
+        .menu-open { transform: translateY(0) !important; }
+        .menu-closed { transform: translateY(-110%); }
+        .modal-hidden { opacity: 0; pointer-events: none; transform: scale(0.9); }
+        .modal-visible { opacity: 1; pointer-events: auto; transform: scale(1); }
+
+        /* HIRING TAPE */
+        .tape-strip {
+            position: absolute; width: 150%; height: 70px;
+            background: #FFD700;
+            color: black;
+            border-top: 5px solid black; border-bottom: 5px solid black;
+            font-weight: 900; font-size: 1.8rem; letter-spacing: 0.1em;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+            z-index: 50; will-change: transform;
+            text-transform: uppercase;
+        }
+
+        /* DISABLED CARDS EFFECT */
+        .cards-disabled {
+            filter: grayscale(100%) opacity(0.3);
+            pointer-events: none;
+            transition: all 0.5s;
+        }
+
+        /* SCROLL REVEAL */
+        .reveal { opacity: 0; transition: all 0.8s ease-out; transform: translateY(30px); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body>
+    
+    <div id="scroll-progress"></div>
+    
+    <div class="cyber-grid"></div>
+    <div class="noise-overlay"></div>
+    <div id="math-particles" class="fixed inset-0 pointer-events-none z-[-2]"></div>
+
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div class="blob" style="top: -20%; left: -20%;"></div>
+        <div class="blob blob-cyan" style="bottom: -20%; right: -20%; animation-delay: -5s;"></div>
+    </div>
+
+    <a href="https://wa.me/393345415707" target="_blank" class="fixed bottom-6 right-6 md:bottom-10 md:right-10 z-[55] w-14 h-14 md:w-16 md:h-16 bg-[#25D366] rounded-full flex items-center justify-center shadow-[0_0_30px_#25D366] hover:scale-110 transition-transform duration-300 animate-bounce group" data-hover>
+        <i class="fa-brands fa-whatsapp text-white text-3xl md:text-4xl"></i>
+    </a>
+
+    <div id="cookie-banner" class="fixed bottom-0 left-0 w-full bg-[#0A0A0A]/95 backdrop-blur-xl border-t border-white/10 p-5 z-[60] flex flex-col md:flex-row items-center justify-between gap-4 shadow-[0_-10px_60px_rgba(0,0,0,0.8)] transform transition-transform duration-500 translate-y-full">
+        <div class="flex items-center gap-4">
+            <i class="fa-solid fa-cookie-bite text-primary text-2xl"></i>
+            <p class="text-xs md:text-sm text-gray-300 font-light max-w-2xl">
+                Utilizziamo i cookie per migliorare la tua esperienza e ottimizzare il servizio. Continuando a navigare sul sito, accetti il nostro utilizzo dei cookie.
+            </p>
+        </div>
+        <button onclick="acceptCookies()" class="data-hover w-full md:w-auto bg-primary text-white px-8 py-2.5 rounded-lg text-xs font-black uppercase tracking-widest hover:bg-white hover:text-black transition-all shadow-[0_0_25px_rgba(157,78,221,0.6)]">
+            Accetto
+        </button>
+    </div>
+
+    <div id="success-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 modal-hidden transition-all duration-300">
+        <div class="relative glass-panel p-8 md:p-12 rounded-[2.5rem] max-w-sm md:max-w-md w-full mx-4 text-center border-t border-white/20 shadow-[0_0_100px_rgba(157,78,221,0.4)] overflow-hidden group">
+            <div id="confetti-container" class="absolute inset-0 pointer-events-none"></div>
+
+            <div id="modal-icon-bg" class="w-24 h-24 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-8 border border-green-500/50 shadow-[0_0_40px_rgba(0,255,163,0.3)] animate-glow-breath backdrop-blur-md">
+                <i id="modal-icon" class="fa-solid fa-check text-5xl text-green-400"></i>
+            </div>
+            
+            <h3 id="modal-title" class="text-4xl font-black uppercase italic mb-4 tracking-tighter text-white drop-shadow-xl">Inviato!</h3>
+            <p id="modal-message" class="text-gray-300 mb-8 text-sm leading-relaxed font-light px-2">Richiesta inviata con successo.</p>
+            
+            <div id="modal-wa-text" class="mb-8 bg-white/5 p-4 rounded-xl border border-white/10">
+                <p class="text-primary text-[10px] font-bold uppercase tracking-[0.2em] animate-pulse mb-2">Next Step</p>
+                <p class="text-gray-300 text-xs">Ti contatteremo su <strong class="text-[#25D366]">WhatsApp</strong> a breve.</p>
+            </div>
+            
+            <button onclick="closeModal()" class="w-full bg-white text-black py-4 rounded-2xl font-black uppercase tracking-[0.2em] hover:bg-primary hover:text-white transition-all shadow-lg transform hover:-translate-y-1" data-hover>
+                Chiudi
+            </button>
+        </div>
+    </div>
+
+    <nav class="fixed w-full z-50 py-4 bg-black/90 backdrop-blur-xl border-b border-white/10 shadow-lg">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center relative z-50">
+            <a href="#" class="text-2xl md:text-3xl font-black tracking-tighter relative group z-50 flex items-start" data-hover style="font-family: 'Inter', sans-serif;">
+                Ripetiamo<span class="text-primary">.</span><sup class="text-[9px] text-gray-500 font-sans mt-1 ml-0.5">&copy;</sup>
+            </a>
+            
+            <div class="hidden md:flex gap-10 text-xs font-bold tracking-widest text-gray-400 uppercase">
+                <a href="#metodo" class="hover:text-primary transition-colors data-hover relative group">Metodo <span class="absolute -bottom-2 left-0 w-0 h-[2px] bg-primary group-hover:w-full transition-all duration-300"></span></a>
+                <a href="#chisono" class="hover:text-primary transition-colors data-hover relative group">Chi Sono <span class="absolute -bottom-2 left-0 w-0 h-[2px] bg-primary group-hover:w-full transition-all duration-300"></span></a>
+                <a href="#reparti" class="hover:text-primary transition-colors data-hover relative group">Reparti <span class="absolute -bottom-2 left-0 w-0 h-[2px] bg-primary group-hover:w-full transition-all duration-300"></span></a>
+                <a href="#contact-area" class="hover:text-primary transition-colors data-hover relative group">Contatti <span class="absolute -bottom-2 left-0 w-0 h-[2px] bg-primary group-hover:w-full transition-all duration-300"></span></a>
+            </div>
+
+            <div class="flex items-center gap-4 z-50">
+                <a href="#contact-area" class="hidden md:block bg-white text-black px-6 py-2.5 rounded-lg text-[10px] font-black uppercase tracking-[0.2em] hover:bg-primary hover:text-white transition-all shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_40px_rgba(157,78,221,0.6)] transform hover:-translate-y-1" data-hover>
+                    Contattaci
+                </a>
+                <button onclick="toggleMenu()" class="md:hidden text-white text-2xl focus:outline-none p-2" data-hover>
+                    <i class="fa-solid fa-bars-staggered"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="fixed inset-0 bg-black/95 backdrop-blur-3xl z-[100] flex flex-col items-center justify-center gap-8 menu-closed md:hidden h-[100dvh]">
+            <button onclick="toggleMenu()" class="absolute top-6 right-6 text-white text-4xl hover:rotate-90 transition-all duration-500 p-4 z-20" data-hover><i class="fa-solid fa-xmark"></i></button>
+            <div class="flex flex-col gap-8 text-center relative z-10 w-full px-10">
+                <a href="#metodo" onclick="toggleMenu()" class="text-2xl font-black tracking-[0.2em] text-gray-500 hover:text-white hover:scale-110 transition-all duration-300">METODO</a>
+                <a href="#chisono" onclick="toggleMenu()" class="text-2xl font-black tracking-[0.2em] text-gray-500 hover:text-white hover:scale-110 transition-all duration-300">CHI SONO</a>
+                <a href="#reparti" onclick="toggleMenu()" class="text-2xl font-black tracking-[0.2em] text-gray-500 hover:text-white hover:scale-110 transition-all duration-300">REPARTI</a>
+                <a href="#contact-area" onclick="toggleMenu()" class="text-2xl font-black tracking-[0.2em] text-gray-500 hover:text-white hover:scale-110 transition-all duration-300">CONTATTI</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="relative z-10 min-h-[90vh] flex flex-col items-center justify-center px-4 md:px-6 text-center pt-20 overflow-hidden">
+        
+        <div class="reveal relative z-10 mb-8 px-5 py-2 border border-primary/50 rounded-full bg-black/60 backdrop-blur-md text-primary text-[10px] md:text-xs font-black uppercase tracking-[0.3em] shadow-[0_0_30px_rgba(157,78,221,0.2)] cursor-default">
+            <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse inline-block mr-2"></span> Tutoring 2.0
+        </div>
+        
+        <h1 class="reveal z-10 hero-title text-[2.8rem] md:text-8xl font-black mb-6 tracking-tight drop-shadow-2xl text-white">
+            Metodo, non <br><span class="gradient-fast">semplici ripetizioni.</span>
+        </h1>
+        
+        <p class="reveal text-3xl md:text-6xl text-gray-500 mb-12 transform -rotate-2" style="font-family: 'Dancing Script', cursive;">
+            "Da studenti per studenti"
+        </p>
+        
+        <a href="#reparti" class="reveal relative z-10 group px-10 py-5 bg-transparent overflow-hidden rounded-xl transition-all hover:scale-105 shadow-[0_0_30px_rgba(157,78,221,0.3)]" data-hover>
+            <div class="absolute inset-0 w-full h-full bg-gradient-to-r from-primary via-purple-600 to-cyan opacity-90 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-30 mix-blend-overlay"></div>
+            <span class="relative z-10 font-black uppercase tracking-[0.15em] text-white text-sm md:text-lg flex items-center gap-4">
+                Esplora il Futuro <i class="fa-solid fa-arrow-right group-hover:translate-x-2 transition-transform"></i>
+            </span>
+        </a>
+    </header>
+
+    <section id="metodo" class="py-24 px-5 md:px-6 relative">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 italic tracking-tight">Il Metodo <span class="text-primary uppercase drop-shadow-[0_0_20px_rgba(157,78,221,0.6)]">E-Lite</span></h2>
+                <div class="h-1 w-20 bg-primary mx-auto rounded-full mb-4"></div>
+                <p class="text-gray-500 font-light tracking-widest text-xs uppercase">Non studiamo di più, studiamo in modo diverso.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 perspective-1000">
+                <div class="glass-panel p-10 rounded-[2rem] group flex flex-col items-center text-center tilt-card" data-tilt>
+                    <div class="w-20 h-20 rounded-2xl bg-primary/10 flex items-center justify-center mb-8 border border-primary/20 shadow-[0_0_20px_rgba(157,78,221,0.2)] group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-brain text-4xl text-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-black mb-4 italic uppercase tracking-wider">Logica Applicata</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed font-light">Eliminiamo lo studio a memoria. Ricostruiamo le formule partendo dal ragionamento puro.</p>
+                </div>
+
+                <div class="glass-panel p-10 rounded-[2rem] group flex flex-col items-center text-center tilt-card" data-tilt style="border-color: rgba(0,243,255,0.2);">
+                    <div class="w-20 h-20 rounded-2xl bg-cyan/10 flex items-center justify-center mb-8 border border-cyan/20 shadow-[0_0_20px_rgba(0,243,255,0.2)] group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-microchip text-4xl text-cyan"></i>
+                    </div>
+                    <h3 class="text-xl font-black mb-4 italic uppercase tracking-wider text-cyan-50">Hub Digitale</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed font-light">Tablet grafici e lavagne condivise in tempo reale: visualizza i concetti astratti.</p>
+                </div>
+
+                <div class="glass-panel p-10 rounded-[2rem] group flex flex-col items-center text-center tilt-card" data-tilt>
+                    <div class="w-20 h-20 rounded-2xl bg-white/5 flex items-center justify-center mb-8 border border-white/10 shadow-[0_0_20px_rgba(255,255,255,0.1)] group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-bolt text-4xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-black mb-4 italic uppercase tracking-wider">Mindset</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed font-light">Strategie per superare l'ansia da prestazione e gestire il Time Management.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="chisono" class="py-24 px-5 relative z-10">
+        <div class="reveal max-w-5xl mx-auto glass-panel p-10 md:p-16 rounded-[2.5rem] border border-primary/20 relative overflow-hidden flex flex-col md:flex-row items-center gap-12 tilt-card" data-tilt>
+            <div class="absolute -right-10 -top-10 opacity-5 pointer-events-none transform rotate-12">
+                <i class="fa-solid fa-user-astronaut text-[250px] text-primary"></i>
+            </div>
+            
+            <div class="relative z-10 md:w-full">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="h-[2px] w-10 bg-primary"></div>
+                    <span class="text-primary font-bold uppercase tracking-[0.2em] text-xs">La Storia</span>
+                </div>
+                <h2 class="text-3xl md:text-6xl font-black mb-8 italic uppercase tracking-tight text-white leading-none">
+                    Dal Tecnico <br>ad <span class="gradient-fast">Ingegneria.</span>
+                </h2>
+                <div class="text-gray-300 leading-relaxed font-light text-sm md:text-lg space-y-6">
+                    <p class="border-l-2 border-primary/50 pl-4">"Vengo da un Istituto Tecnico e l’impatto con Ingegneria è stato il momento in cui ho capito cosa volesse dire davvero studiare."</p>
+                    <p>Ho dovuto resettare tutto e imparare a ragionare, smettendo di imparare a memoria concetti che non padroneggiavo.</p>
+                    <div class="bg-primary/10 p-4 rounded-xl border border-primary/20">
+                        <p class="font-bold text-white text-sm md:text-base italic"><i class="fa-solid fa-quote-left text-primary mr-2"></i> È in quella sfida che ho costruito il metodo che uso ancora oggi.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="reparti" class="py-24 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="reveal text-4xl md:text-6xl font-black mb-16 text-center italic uppercase tracking-tight text-white">
+                Reparti <span class="text-primary drop-shadow-[0_0_20px_rgba(157,78,221,0.5)]">Attivi</span>
+            </h2>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-16">
+                <button onclick="toggleReparto('superiori')" class="tilt-card group glass-panel p-5 md:p-8 rounded-[2rem] text-left relative overflow-hidden h-72 transition-all hover:border-primary click-hint" data-tilt data-hover>
+                    <div class="absolute top-4 right-4 opacity-50 md:opacity-20 group-hover:opacity-40 transition-all group-hover:scale-110"><i class="fa-solid fa-graduation-cap text-6xl md:text-8xl text-primary"></i></div>
+                    <div class="relative z-10 h-full flex flex-col justify-end">
+                        <div class="w-8 h-1 bg-primary mb-3"></div>
+                        <h3 class="text-lg md:text-2xl font-black uppercase italic group-hover:text-primary transition-colors">Superiori</h3>
+                        <p class="text-[10px] font-bold tracking-[0.2em] text-gray-500 uppercase mt-2">Technical & Sci</p>
+                        
+                        <div class="mt-4 bg-primary/20 border border-primary/50 text-white text-[9px] font-black uppercase tracking-widest py-2 px-3 rounded-lg flex items-center justify-center gap-2 group-hover:bg-primary group-hover:text-white transition-all">
+                            <i class="fa-solid fa-arrow-down animate-bounce"></i> Clicca qui
+                        </div>
+                    </div>
+                </button>
+
+                <button onclick="toggleReparto('universita')" class="tilt-card group glass-panel p-5 md:p-8 rounded-[2rem] text-left relative overflow-hidden h-72 transition-all hover:border-cyan click-hint" data-tilt style="--mouse-x:50%; --mouse-y:50%;" data-hover>
+                    <div class="absolute top-4 right-4 opacity-50 md:opacity-20 group-hover:opacity-40 transition-all group-hover:scale-110"><i class="fa-solid fa-atom text-6xl md:text-8xl text-cyan"></i></div>
+                    <div class="relative z-10 h-full flex flex-col justify-end">
+                        <div class="w-8 h-1 bg-cyan mb-3"></div>
+                        <h3 class="text-lg md:text-2xl font-black uppercase italic group-hover:text-cyan transition-colors">Università</h3>
+                        <p class="text-[10px] font-bold tracking-[0.2em] text-gray-500 uppercase mt-2">STEM & Eng.</p>
+                         <div class="mt-4 bg-cyan/20 border border-cyan/50 text-white text-[9px] font-black uppercase tracking-widest py-2 px-3 rounded-lg flex items-center justify-center gap-2 group-hover:bg-cyan group-hover:text-black transition-all">
+                            <i class="fa-solid fa-arrow-down animate-bounce"></i> Clicca qui
+                        </div>
+                    </div>
+                </button>
+
+                <button onclick="toggleReparto('test')" class="tilt-card group glass-panel p-5 md:p-8 rounded-[2rem] text-left relative overflow-hidden h-72 transition-all hover:border-warning click-hint" data-tilt data-hover>
+                    <div class="absolute top-4 right-4 opacity-50 md:opacity-20 group-hover:opacity-40 transition-all group-hover:scale-110"><i class="fa-solid fa-file-contract text-6xl md:text-8xl text-warning"></i></div>
+                    <div class="relative z-10 h-full flex flex-col justify-end">
+                        <div class="w-8 h-1 bg-warning mb-3"></div>
+                        <h3 class="text-lg md:text-2xl font-black uppercase italic group-hover:text-warning transition-colors">Test</h3>
+                        <p class="text-[10px] font-bold tracking-[0.2em] text-gray-500 uppercase mt-2">TOLC & Public</p>
+                         <div class="mt-4 bg-warning/20 border border-warning/50 text-white text-[9px] font-black uppercase tracking-widest py-2 px-3 rounded-lg flex items-center justify-center gap-2 group-hover:bg-warning group-hover:text-black transition-all">
+                            <i class="fa-solid fa-arrow-down animate-bounce"></i> Clicca qui
+                        </div>
+                    </div>
+                </button>
+
+                <button onclick="toggleReparto('corsi')" class="tilt-card group glass-panel p-5 md:p-8 rounded-[2rem] text-left relative overflow-hidden h-72 transition-all hover:border-success click-hint" data-tilt data-hover>
+                    <div class="absolute top-4 right-4 opacity-50 md:opacity-20 group-hover:opacity-40 transition-all group-hover:scale-110"><i class="fa-solid fa-chart-line text-6xl md:text-8xl text-success"></i></div>
+                    <div class="relative z-10 h-full flex flex-col justify-end">
+                        <div class="w-8 h-1 bg-success mb-3"></div>
+                        <h3 class="text-lg md:text-2xl font-black uppercase italic group-hover:text-success transition-colors">Skills</h3>
+                        <p class="text-[10px] font-bold tracking-[0.2em] text-gray-500 uppercase mt-2">Excel & Office</p>
+                         <div class="mt-4 bg-success/20 border border-success/50 text-white text-[9px] font-black uppercase tracking-widest py-2 px-3 rounded-lg flex items-center justify-center gap-2 group-hover:bg-success group-hover:text-black transition-all">
+                            <i class="fa-solid fa-arrow-down animate-bounce"></i> Clicca qui
+                        </div>
+                    </div>
+                </button>
+            </div>
+
+            <div id="content-superiori" class="hidden animate-pop-in mb-20 scroll-mt-32">
+                <h4 class="text-center text-primary font-bold uppercase tracking-[0.3em] mb-8 text-sm">Modulo Superiori Attivo</h4>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div onclick="selectSubject('Matematica')" class="glass-panel p-5 rounded-xl text-center cursor-pointer hover:bg-primary/20 transition-all border-l-4 border-primary font-bold uppercase tracking-wider text-sm md:text-base data-hover">Matematica</div>
+                    <div onclick="selectSubject('Fisica')" class="glass-panel p-5 rounded-xl text-center cursor-pointer hover:bg-primary/20 transition-all border-l-4 border-primary font-bold uppercase tracking-wider text-sm md:text-base data-hover">Fisica</div>
+                    <div onclick="selectSubject('Chimica')" class="glass-panel p-5 rounded-xl text-center cursor-pointer hover:bg-primary/20 transition-all border-l-4 border-primary font-bold uppercase tracking-wider text-sm md:text-base data-hover">Chimica</div>
+                    
+                    <div onclick="selectSubject('Informatica Superiori')" class="glass-panel p-5 rounded-xl text-center cursor-pointer hover:bg-primary/20 transition-all border-2 border-primary text-white font-bold uppercase tracking-wider text-sm md:text-base data-hover shadow-[0_0_15px_rgba(157,78,221,0.3)]">Informatica</div>
+                    
+                    <div onclick="selectSubject('Meccatronica')" class="glass-panel p-5 rounded-xl text-center cursor-pointer hover:bg-primary/20 transition-all border-l-4 border-primary font-bold uppercase tracking-wider text-sm md:text-base data-hover">Meccatronica</div>
+                    <div onclick="selectSubject('Economia')" class="glass-panel p-5 rounded-xl text-center cursor-pointer hover:bg-primary/20 transition-all border-l-4 border-primary font-bold uppercase tracking-wider text-sm md:text-base data-hover">Economia</div>
+                    <div onclick="selectSubject('Elettronica')" class="glass-panel p-5 rounded-xl text-center cursor-pointer hover:bg-primary/20 transition-all border-l-4 border-primary font-bold uppercase tracking-wider text-sm md:text-base data-hover">Elettronica</div>
+                    <div onclick="selectSubject('Altro - Superiori')" class="glass-panel p-5 rounded-xl text-center cursor-pointer hover:bg-white/10 transition-all border-l-4 border-gray-500 text-gray-400 font-bold uppercase tracking-wider text-sm md:text-base data-hover">Altro</div>
+                </div>
+            </div>
+            
+            <div id="content-universita" class="hidden animate-pop-in mb-20 scroll-mt-32">
+                <h4 class="text-center text-cyan font-bold uppercase tracking-[0.3em] mb-8 text-sm">Modulo Accademico Attivo</h4>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div onclick="selectSubject('Analisi 1')" class="glass-panel p-5 rounded-xl text-center cursor-pointer hover:bg-cyan/20 transition-all border-l-4 border-cyan text-cyan-100 font-bold uppercase tracking-wider text-sm md:text-base data-hover">Analisi 1</div>
+                    <div onclick="selectSubject('Algebra')" class="glass-panel p-5 rounded-xl text-center cursor-pointer hover:bg-cyan/20 transition-all border-l-4 border-cyan text-cyan-100 font-bold uppercase tracking-wider text-sm md:text-base data-hover">Algebra</div>
+                    <div onclick="selectSubject('Fisica 1')" class="glass-panel p-5 rounded-xl text-center cursor-pointer hover:bg-cyan/20 transition-all border-l-4 border-cyan text-cyan-100 font-bold uppercase tracking-wider text-sm md:text-base data-hover">Fisica 1</div>
+                    
+                    <div onclick="selectSubject('Informatica Uni')" class="glass-panel p-5 rounded-xl text-center cursor-pointer hover:bg-cyan/20 transition-all border-2 border-cyan text-cyan-100 font-bold uppercase tracking-wider text-sm md:text-base data-hover shadow-[0_0_15px_rgba(0,243,255,0.3)]">Informatica</div>
+                    
+                    <div onclick="selectSubject('Chimica Gen./Org.')" class="glass-panel p-5 rounded-xl text-center cursor-pointer hover:bg-cyan/20 transition-all border-l-4 border-cyan text-cyan-100 font-bold uppercase tracking-wider text-sm md:text-base data-hover">Chimica</div>
+                    <div onclick="selectSubject('Statistica')" class="glass-panel p-5 rounded-xl text-center cursor-pointer hover:bg-cyan/20 transition-all border-l-4 border-cyan text-cyan-100 font-bold uppercase tracking-wider text-sm md:text-base data-hover">Statistica</div>
+                    <div onclick="selectSubject('Altro - Università')" class="glass-panel p-5 rounded-xl text-center cursor-pointer hover:bg-white/10 transition-all border-l-4 border-gray-500 text-gray-400 font-bold uppercase tracking-wider text-sm md:text-base col-span-2 md:col-span-2 data-hover">Altro / Specifico</div>
+                </div>
+            </div>
+
+            <div id="content-test" class="hidden animate-pop-in mb-20 scroll-mt-32">
+                <h4 class="text-center text-warning font-bold uppercase tracking-[0.3em] mb-8 text-sm">Modulo Concorsi Attivo</h4>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                     <div onclick="selectSubject('TOLC Test')" class="glass-panel p-5 rounded-xl text-center cursor-pointer hover:bg-warning/20 transition-all border-l-4 border-warning text-warning font-bold uppercase tracking-wider text-sm md:text-base data-hover">TOLC-I / E</div>
+                     <div onclick="selectSubject('Test Medicina')" class="glass-panel p-5 rounded-xl text-center cursor-pointer hover:bg-warning/20 transition-all border-l-4 border-warning text-warning font-bold uppercase tracking-wider text-sm md:text-base data-hover">TOLC-MED</div>
+                     <div onclick="selectSubject('Polizia/Forze')" class="glass-panel p-5 rounded-xl text-center cursor-pointer hover:bg-warning/20 transition-all border-l-4 border-warning text-warning font-bold uppercase tracking-wider text-sm md:text-base data-hover">Polizia</div>
+                     <div onclick="selectSubject('Concorsi Pubblici')" class="glass-panel p-5 rounded-xl text-center cursor-pointer hover:bg-warning/20 transition-all border-l-4 border-warning text-warning font-bold uppercase tracking-wider text-sm md:text-base data-hover">Concorsi</div>
+                     <div onclick="selectSubject('Altro Test')" class="glass-panel p-5 rounded-xl text-center cursor-pointer hover:bg-white/10 transition-all border-l-4 border-gray-500 text-gray-400 font-bold uppercase tracking-wider text-sm md:text-base col-span-2 md:col-span-4 data-hover">Altro</div>
+                </div>
+            </div>
+            
+            <div id="content-corsi" class="hidden animate-pop-in mb-20 scroll-mt-32">
+                 <h4 class="text-center text-success font-bold uppercase tracking-[0.3em] mb-8 text-sm">Modulo Skills Attivo</h4>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div onclick="selectSubject('Excel Base/Adv')" class="glass-panel p-5 rounded-xl text-center cursor-pointer hover:bg-success/20 transition-all border-l-4 border-success text-success font-bold uppercase tracking-wider text-sm md:text-base data-hover">Excel</div>
+                    <div onclick="selectSubject('Pacchetto Office')" class="glass-panel p-5 rounded-xl text-center cursor-pointer hover:bg-success/20 transition-all border-l-4 border-success text-success font-bold uppercase tracking-wider text-sm md:text-base data-hover">Office</div>
+                    <div onclick="selectSubject('PowerPoint')" class="glass-panel p-5 rounded-xl text-center cursor-pointer hover:bg-success/20 transition-all border-l-4 border-success text-success font-bold uppercase tracking-wider text-sm md:text-base data-hover">PowerPoint</div>
+                    <div onclick="selectSubject('Altro Corso')" class="glass-panel p-5 rounded-xl text-center cursor-pointer hover:bg-white/10 transition-all border-l-4 border-gray-500 text-gray-400 font-bold uppercase tracking-wider text-sm md:text-base data-hover">Altro</div>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <section id="hiring" class="py-32 relative overflow-hidden">
+        <div class="max-w-5xl mx-auto px-6 text-center relative z-10">
+             <h2 class="reveal text-4xl md:text-7xl font-black italic uppercase mb-16 tracking-tighter drop-shadow-2xl">Entra nel <span class="text-primary">Team.</span></h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 cards-disabled relative">
+                <div class="tilt-card glass-panel p-8 rounded-[2rem] bg-black/60 relative group">
+                    <h4 class="font-bold text-primary mb-3 italic tracking-widest uppercase text-sm relative z-10">Requisito 1</h4>
+                    <p class="text-lg font-bold text-white relative z-10">Media Eccellente (>8 o >27)</p>
+                </div>
+                <div class="tilt-card glass-panel p-8 rounded-[2rem] bg-black/60 relative group">
+                    <h4 class="font-bold text-primary mb-3 italic tracking-widest uppercase text-sm relative z-10">Requisito 2</h4>
+                    <p class="text-lg font-bold text-white relative z-10">Abilità comunicative Elite</p>
+                </div>
+                <div class="tilt-card glass-panel p-8 rounded-[2rem] bg-black/60 relative group">
+                    <h4 class="font-bold text-primary mb-3 italic tracking-widest uppercase text-sm relative z-10">Requisito 3</h4>
+                    <p class="text-lg font-bold text-white relative z-10">Padronanza Digital</p>
+                </div>
+            </div>
+            
+             <p class="mt-12 text-gray-500 text-xs tracking-[0.3em] uppercase">Candidature momentaneamente chiuse</p>
+        </div>
+
+        <div id="hiring-overlay" class="absolute inset-0 z-20 pointer-events-none flex items-center justify-center overflow-hidden h-full">
+            <div class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity duration-300" id="hiring-backdrop"></div>
+            
+            <div id="tape-1" class="tape-strip" style="transform: rotate(10deg);">
+                CLASSIFIED // DO NOT CROSS // CLASSIFIED // DO NOT CROSS // CLASSIFIED // DO NOT CROSS
+            </div>
+
+            <div id="tape-2" class="tape-strip" style="transform: rotate(-10deg);">
+                 RESTRICTED AREA // ELITE ONLY // RESTRICTED AREA // ELITE ONLY // RESTRICTED AREA
+            </div>
+
+            <div class="absolute z-30 flex flex-col items-center justify-center">
+                <div id="lock-icon" class="text-danger text-8xl drop-shadow-[0_0_50px_rgba(255,0,0,0.8)] mb-4">
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+                <div class="text-white font-black text-4xl uppercase tracking-widest border-4 border-white px-8 py-2 animate-blink-red bg-black">
+                    STATUS: CHIUSO
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact-area" class="py-24 px-4 relative z-10">
+        <div class="reveal max-w-2xl mx-auto glass-panel p-8 md:p-14 rounded-[3rem] relative shadow-[0_20px_100px_rgba(0,0,0,1)] border-t border-white/20 tilt-card" data-tilt>
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-2/3 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent shadow-[0_0_20px_#9D4EDD]"></div>
+            
+            <h2 class="text-3xl md:text-5xl font-black mb-4 text-center italic uppercase tracking-tighter">Chiedi info <span class="text-primary">o prenota</span></h2>
+            <p class="text-gray-500 mb-10 text-center text-xs font-bold tracking-[0.2em] uppercase">Risposta media: <span class="text-white px-2 py-0.5 rounded bg-white/10">15 min</span></p>
+            
+            <form id="contactForm" onsubmit="submitForm(event, 'contact')" class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <input type="text" name="nome" placeholder="Nome completo" required class="tech-input w-full p-5 rounded-2xl placeholder-gray-500 font-medium bg-black/50 border border-white/20 focus:border-primary text-white">
+                    <input type="tel" name="telefono" placeholder="Cellulare" required class="tech-input w-full p-5 rounded-2xl placeholder-gray-500 font-medium bg-black/50 border border-white/20 focus:border-primary text-white">
+                </div>
+                
+                <div class="relative group">
+                    <select id="materiaSelect" name="tipo_richiesta" class="tech-input w-full p-5 rounded-2xl bg-black/80 appearance-none cursor-pointer font-medium border border-white/20 focus:border-primary text-white">
+                        <option value="">Seleziona la tua esigenza</option>
+                        <option value="Superiori">Richiesta info - Scuole Superiori</option>
+                        <option value="Universita">Richiesta info - Università</option>
+                        <option value="TestAmmissione">Preparazione Test/Concorsi</option>
+                        <option value="Corsi">Corsi di Formazione & Office</option>
+                        <option value="Prenotazione">Prenota una lezione di prova</option>
+                    </select>
+                    <i class="fa-solid fa-chevron-down absolute right-6 top-1/2 -translate-y-1/2 text-primary pointer-events-none group-hover:scale-125 transition-transform"></i>
+                </div>
+                
+                <textarea id="messaggioArea" name="messaggio" placeholder="Descrivi brevemente l'argomento..." class="tech-input w-full p-5 rounded-2xl h-40 resize-none placeholder-gray-500 font-medium bg-black/50 border border-white/20 focus:border-primary text-white"></textarea>
+                
+                <button type="submit" class="w-full bg-primary py-6 rounded-2xl font-black uppercase tracking-[0.3em] hover:bg-white hover:text-black transition-all shadow-[0_0_40px_rgba(157,78,221,0.5)] hover:shadow-[0_0_60px_rgba(255,255,255,0.8)] relative overflow-hidden group" data-hover>
+                    <span class="relative z-10 button-text text-sm">Invia Richiesta</span>
+                    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:animate-shine"></div>
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <section id="recensioni" class="py-24 px-5 relative">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="reveal text-4xl md:text-6xl font-black mb-16 text-center italic tracking-tighter uppercase">Feedback <span class="text-primary drop-shadow-[0_0_20px_rgba(157,78,221,0.8)]">Elite</span></h2>
+            
+            <div class="text-center mb-16 reveal">
+                <button onclick="document.getElementById('review-form-container').classList.toggle('hidden')" class="data-hover group text-xs font-black uppercase tracking-[0.25em] border border-primary/50 px-10 py-5 rounded-full hover:bg-primary transition-all text-white shadow-[0_0_20px_rgba(157,78,221,0.3)] hover:shadow-[0_0_50px_rgba(157,78,221,0.6)]">
+                    Scrivi una recensione <i class="fa-solid fa-pen-to-square ml-3 group-hover:rotate-12 transition-transform"></i>
+                </button>
+            </div>
+
+            <div id="review-form-container" class="hidden max-w-xl mx-auto mb-16 glass-panel p-10 rounded-[3rem] border-t border-primary/40 animate-pop-in relative overflow-hidden">
+                <div class="absolute -top-10 -right-10 w-60 h-60 bg-primary/20 rounded-full blur-[80px] pointer-events-none"></div>
+                <h3 class="text-2xl font-bold mb-8 text-center italic relative z-10 uppercase tracking-wide">La tua esperienza conta</h3>
+                
+                <form id="reviewForm" onsubmit="submitForm(event, 'review')" class="space-y-6 relative z-10">
+                    <input type="text" name="nome" placeholder="Il tuo nome (o nickname)" required class="tech-input w-full p-5 rounded-2xl bg-black/50 border border-white/20 focus:border-primary text-white">
+                    
+                    <div class="text-center py-6 glass-panel rounded-2xl bg-black/30 border border-white/5">
+                        <p class="text-xs text-gray-400 mb-3 uppercase tracking-widest font-bold">Valutazione</p>
+                        <div class="star-rating scale-125">
+                            <input type="radio" id="star5" name="messaggio" value="5 Stelle" checked/><label for="star5"><i class="fas fa-star"></i></label>
+                            <input type="radio" id="star4" name="messaggio" value="4 Stelle"/><label for="star4"><i class="fas fa-star"></i></label>
+                            <input type="radio" id="star3" name="messaggio" value="3 Stelle"/><label for="star3"><i class="fas fa-star"></i></label>
+                            <input type="radio" id="star2" name="messaggio" value="2 Stelle"/><label for="star2"><i class="fas fa-star"></i></label>
+                            <input type="radio" id="star1" name="messaggio" value="1 Stella"/><label for="star1"><i class="fas fa-star"></i></label>
+                        </div>
+                    </div>
+                    
+                    <textarea name="messaggio_testo" placeholder="Racconta brevemente il tuo traguardo..." required class="tech-input w-full p-5 rounded-2xl h-32 resize-none bg-black/50 border border-white/20 focus:border-primary text-white"></textarea>
+                    
+                    <button type="submit" class="w-full bg-primary/20 border border-primary text-primary hover:bg-primary hover:text-white py-5 rounded-2xl font-black uppercase tracking-[0.2em] transition-all text-xs hover:shadow-[0_0_30px_rgba(157,78,221,0.6)]" data-hover>
+                        Invia Feedback
+                    </button>
+                </form>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="tilt-card glass-panel p-8 rounded-[2rem] flex flex-col justify-between hover:border-white/30" data-tilt>
+                    <div><div class="flex text-warning mb-4 text-xs gap-1"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="text-sm text-gray-300 italic leading-relaxed font-light">"Mi ha aiutato un sacco con analisi 1, prima ero completamente perso. Spiega in modo semplice e senza farti sentire stupido."</p></div>
+                    <div class="mt-6 pt-6 border-t border-white/5 flex items-center gap-4"><div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-sm font-bold text-primary">L</div><p class="text-xs font-bold uppercase tracking-wider text-gray-400">Luca R.</p></div>
+                </div>
+
+                <div class="tilt-card glass-panel p-8 rounded-[2rem] flex flex-col justify-between hover:border-cyan/30" data-tilt style="--mouse-x:50%; --mouse-y:50%;">
+                    <div><div class="flex text-warning mb-4 text-xs gap-1"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="text-sm text-gray-300 italic leading-relaxed font-light">"Fisica spiegata finalmente come si deve. Ho iniziato a capire davvero e non solo a imparare formule a caso."</p></div>
+                    <div class="mt-6 pt-6 border-t border-white/5 flex items-center gap-4"><div class="w-10 h-10 rounded-full bg-cyan/20 flex items-center justify-center text-sm font-bold text-cyan">G</div><p class="text-xs font-bold uppercase tracking-wider text-gray-400">Giulia M.</p></div>
+                </div>
+
+                <div class="tilt-card glass-panel p-8 rounded-[2rem] flex flex-col justify-between hover:border-white/30" data-tilt>
+                    <div><div class="flex text-warning mb-4 text-xs gap-1"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></div><p class="text-sm text-gray-300 italic leading-relaxed font-light">"Bravo in matematica, soprattutto per le superiori. A volte va veloce ma se chiedi ti rispiega."</p></div>
+                    <div class="mt-6 pt-6 border-t border-white/5 flex items-center gap-4"><div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-sm font-bold text-white">M</div><p class="text-xs font-bold uppercase tracking-wider text-gray-400">Marco T.</p></div>
+                </div>
+
+                <div class="tilt-card glass-panel p-8 rounded-[2rem] flex flex-col justify-between hover:border-warning/30" data-tilt>
+                    <div><div class="flex text-warning mb-4 text-xs gap-1"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="text-sm text-gray-300 italic leading-relaxed font-light">"Mio figlio aveva grosse difficoltà in chimica e matematica, dopo qualche lezione si è sbloccato e ora va molto meglio."</p></div>
+                    <div class="mt-6 pt-6 border-t border-white/5 flex items-center gap-4"><div class="w-10 h-10 rounded-full bg-warning/20 flex items-center justify-center text-sm font-bold text-warning">S</div><p class="text-xs font-bold uppercase tracking-wider text-gray-400">Sara B. (Mamma)</p></div>
+                </div>
+
+                <div class="tilt-card glass-panel p-8 rounded-[2rem] flex flex-col justify-between hover:border-primary/30" data-tilt>
+                    <div><div class="flex text-warning mb-4 text-xs gap-1"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="text-sm text-gray-300 italic leading-relaxed font-light">"Analisi 1 tosta ma spiegata bene. Non regala niente ma ti fa ragionare."</p></div>
+                    <div class="mt-6 pt-6 border-t border-white/5 flex items-center gap-4"><div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-sm font-bold text-primary">A</div><p class="text-xs font-bold uppercase tracking-wider text-gray-400">Andrea F.</p></div>
+                </div>
+
+                <div class="tilt-card glass-panel p-8 rounded-[2rem] flex flex-col justify-between hover:border-white/30" data-tilt>
+                    <div><div class="flex text-warning mb-4 text-xs gap-1"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="text-sm text-gray-300 italic leading-relaxed font-light">"Ripetizioni serie, niente tempo perso. Se non studi te lo dice ma ti aiuta davvero."</p></div>
+                    <div class="mt-6 pt-6 border-t border-white/5 flex items-center gap-4"><div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-sm font-bold text-white">F</div><p class="text-xs font-bold uppercase tracking-wider text-gray-400">Francesco L.</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-16 text-center border-t border-white/5 bg-black/95 backdrop-blur-md relative z-10">
+        <p class="text-[10px] tracking-[0.5em] uppercase font-black italic text-gray-600 hover:text-white transition-colors cursor-default">
+            RIPETIAMO ELITE TUTORING <span class="text-primary animate-pulse mx-2">&bull;</span> &copy; 2026 <span class="text-primary animate-pulse mx-2">&bull;</span> ALL RIGHTS RESERVED
+        </p>
+    </footer>
+
+    <script>
+        // --- MATH FLOATING PARTICLES ---
+        function initMathParticles() {
+            const container = document.getElementById('math-particles');
+            const symbols = ['π', 'Σ', '∫', 'α', 'Ω', '∞', '√', '∂', 'λ', '∆', '≈', '≠', '42', 'e', 'x', 'y'];
+            const colors = ['text-gray-600', 'text-gray-700', 'text-primary/30', 'text-cyan/30'];
+            
+            for(let i=0; i<35; i++) { 
+                const el = document.createElement('div');
+                el.classList.add('math-symbol');
+                el.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+                
+                el.style.left = Math.random() * 100 + 'vw';
+                el.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                
+                el.style.animationDuration = (Math.random() * 15 + 10) + 's'; 
+                el.style.animationDelay = Math.random() * 5 + 's';
+                
+                if(Math.random() > 0.8) el.classList.add('cyan');
+                
+                container.appendChild(el);
+            }
+        }
+        initMathParticles();
+
+        // --- TILT EFFECT & UI LOGIC ---
+        document.querySelectorAll('.tilt-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                if(window.innerWidth > 768) {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    card.style.setProperty('--mouse-x', `${x}px`);
+                    card.style.setProperty('--mouse-y', `${y}px`);
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = ((y - centerY) / centerY) * -5; 
+                    const rotateY = ((x - centerX) / centerX) * 5;  
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                }
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+            });
+        });
+
+        // Intersection Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // --- PROGRESS BAR ---
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.body.offsetHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            document.getElementById('scroll-progress').style.width = scrollPercent + '%';
+        }, { passive: true });
+
+        // --- HIRING TAPE LOGIC (Lerp) ---
+        let currentScroll = 0;
+        let targetScroll = 0;
+        function lerp(start, end, factor) { return start + (end - start) * factor; }
+
+        function updateTape() {
+            targetScroll = window.scrollY;
+            currentScroll = lerp(currentScroll, targetScroll, 0.1); 
+            
+            const hiringSection = document.getElementById('hiring');
+            if(hiringSection) {
+                const rect = hiringSection.getBoundingClientRect();
+                const viewportHeight = window.innerHeight;
+                const progress = 1 - (rect.top + rect.height/2 - viewportHeight/2) / (viewportHeight/2);
+                
+                if (rect.top < viewportHeight * 1.5 && rect.bottom > -viewportHeight * 0.5) {
+                     const movement = progress * 150; 
+                     document.getElementById('tape-1').style.transform = `rotate(10deg) translate(-${movement}%, 0)`;
+                     document.getElementById('tape-2').style.transform = `rotate(-10deg) translate(${movement}%, 0)`;
+                     
+                     const lock = document.getElementById('lock-icon');
+                     const backdrop = document.getElementById('hiring-backdrop');
+                     if(progress > 0.1) {
+                         lock.style.opacity = Math.max(0, 1 - (progress - 0.1) * 3);
+                         lock.style.transform = `scale(${1 + progress})`;
+                         backdrop.style.opacity = Math.max(0, 0.8 - progress);
+                     } else {
+                         lock.style.opacity = 1;
+                         lock.style.transform = 'scale(1)';
+                         backdrop.style.opacity = 0.8;
+                     }
+                }
+            }
+            requestAnimationFrame(updateTape);
+        }
+        updateTape();
+
+        // --- UTILS ---
+        document.addEventListener("DOMContentLoaded", function() {
+            if (!localStorage.getItem("cookiesAccepted")) {
+                setTimeout(() => document.getElementById("cookie-banner").classList.remove("translate-y-full"), 1500);
+            }
+        });
+        function acceptCookies() {
+            localStorage.setItem("cookiesAccepted", "true");
+            document.getElementById("cookie-banner").classList.add("translate-y-full");
+        }
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            if (menu.classList.contains('menu-closed')) {
+                menu.classList.remove('menu-closed'); menu.classList.add('menu-open');
+                document.body.style.overflow = 'hidden'; 
+            } else {
+                menu.classList.remove('menu-open'); menu.classList.add('menu-closed');
+                document.body.style.overflow = ''; 
+            }
+        }
+        function toggleReparto(id) {
+            const divs = ['content-superiori', 'content-universita', 'content-test', 'content-corsi'];
+            divs.forEach(d => {
+                const el = document.getElementById(d);
+                if(d !== 'content-' + id && !el.classList.contains('hidden')) el.classList.add('hidden');
+            });
+            const target = document.getElementById('content-' + id);
+            if(target) {
+                target.classList.remove('hidden');
+                setTimeout(() => {
+                    const y = target.getBoundingClientRect().top + window.pageYOffset - 100;
+                    window.scrollTo({top: y, behavior: 'smooth'});
+                }, 100);
+            }
+        }
+        function selectSubject(name) {
+            const sel = document.getElementById('materiaSelect');
+            const msg = document.getElementById('messaggioArea');
+            if(name.includes('Analisi') || name.includes('Fisica 1') || name.includes('Algebra') || name.includes('Uni') || name.includes('Statistica')) sel.value = 'Universita';
+            else if (name.includes('TOLC') || name.includes('Polizia') || name.includes('Concorsi') || name.includes('Test')) sel.value = 'TestAmmissione';
+            else if (name.includes('Excel') || name.includes('Office') || name.includes('PowerPoint') || name.includes('Dati') || name.includes('Corso')) sel.value = 'Corsi';
+            else sel.value = 'Superiori';
+
+            msg.value = "Richiesta info specifica: " + name;
+            const y = document.getElementById('contact-area').getBoundingClientRect().top + window.pageYOffset - 50;
+            window.scrollTo({top: y, behavior: 'smooth'});
+        }
+        function submitForm(e, type) {
+            e.preventDefault();
+            const form = e.target;
+            const btn = form.querySelector('button[type="submit"]');
+            const btnText = btn.querySelector('.button-text') || btn;
+            const originalText = btnText.innerHTML;
+            btnText.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> INVIO...';
+            btn.disabled = true;
+
+            const formData = new FormData(form);
+            if (type === 'review') formData.set('tipo_richiesta', 'RECENSIONE_SITO'); 
+            else {
+                let tel = formData.get('telefono');
+                if(tel) formData.set('telefono', "'" + tel);
+            }
+
+            fetch('https://script.google.com/macros/s/AKfycbwmTq73CrKn-ZB-qBibz6pW8zASyrNqc3QuzwGGkkrGg6SuZ2TprnMOCRPTg0dWqH-zCg/exec', { method: 'POST', body: formData })
+                .then(() => {
+                    btnText.innerHTML = originalText;
+                    btn.disabled = false;
+                    showModal(type); 
+                    form.reset();
+                    if(type === 'review') document.getElementById('review-form-container').classList.add('hidden');
+                })
+                .catch(() => {
+                    alert("Errore di rete. Riprova o scrivici su WhatsApp.");
+                    btnText.innerHTML = originalText;
+                    btn.disabled = false;
+                });
+        }
+        function showModal(type) {
+            const modal = document.getElementById('success-modal');
+            const title = document.getElementById('modal-title');
+            const message = document.getElementById('modal-message');
+            const waText = document.getElementById('modal-wa-text');
+            const icon = document.getElementById('modal-icon');
+
+            if (type === 'review') {
+                title.innerText = "GRAZIE!";
+                message.innerText = "Il tuo feedback è prezioso per noi.";
+                waText.classList.add('hidden');
+                icon.className = "fa-solid fa-star text-5xl text-yellow-400";
+                document.getElementById('modal-icon-bg').className = "w-24 h-24 bg-yellow-500/10 rounded-full flex items-center justify-center mx-auto mb-8 border border-yellow-500/50 shadow-[0_0_40px_rgba(255,215,0,0.3)] animate-glow-breath backdrop-blur-md";
+            } else {
+                title.innerText = "INVIATO!";
+                message.innerText = "Richiesta inviata con successo.";
+                waText.classList.remove('hidden');
+                icon.className = "fa-solid fa-check text-5xl text-green-400";
+                document.getElementById('modal-icon-bg').className = "w-24 h-24 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-8 border border-green-500/50 shadow-[0_0_40px_rgba(0,255,163,0.3)] animate-glow-breath backdrop-blur-md";
+            }
+
+            modal.classList.remove('modal-hidden');
+            modal.classList.add('modal-visible');
+            const container = document.getElementById('confetti-container');
+            container.innerHTML = '';
+            const colors = ['#9D4EDD', '#00F3FF', '#FFD700', '#FFFFFF'];
+            for(let i=0; i<50; i++) {
+                const conf = document.createElement('div');
+                conf.style.position = 'absolute';
+                conf.style.width = Math.random() * 8 + 4 + 'px';
+                conf.style.height = Math.random() * 12 + 6 + 'px';
+                conf.style.background = colors[Math.floor(Math.random() * colors.length)];
+                conf.style.left = '50%';
+                conf.style.top = '50%';
+                const angle = Math.random() * 360;
+                const dist = Math.random() * 200 + 50;
+                const x = Math.cos(angle * Math.PI / 180) * dist;
+                const y = Math.sin(angle * Math.PI / 180) * dist;
+                conf.animate([
+                    { transform: 'translate(0,0) rotate(0deg)', opacity: 1 },
+                    { transform: `translate(${x}px, ${y}px) rotate(${Math.random()*720}deg)`, opacity: 0 }
+                ], { duration: 1000 + Math.random()*500, easing: 'cubic-bezier(0.25, 1, 0.5, 1)' });
+                container.appendChild(conf);
+            }
+        }
+        function closeModal() {
+            const modal = document.getElementById('success-modal');
+            modal.classList.remove('modal-visible');
+            modal.classList.add('modal-hidden');
+        }
+    </script>
+</body>
+</html>
